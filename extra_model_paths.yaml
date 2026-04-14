@@ -1,0 +1,5 @@
+comfyui_custom:
+    base_path: D:/PixelSmile/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/
+    checkpoints: models/checkpoints/
+    loras: models/loras/
+    vae: models/vae/
