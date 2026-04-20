@@ -1,0 +1,269 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "dreamshaper_8.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器（简易）"
+    }
+  },
+  "2": {
+    "inputs": {
+      "image": "盘子1.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "3": {
+    "inputs": {
+      "image": "ChineseDragon2.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "6": {
+    "inputs": {
+      "control_net_name": "control_v11p_sd15_canny.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "加载ControlNet模型"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "celadon bowl interior, dragon motif carved under glaze, follows bowl curvature, radial flow conforming to vessel geometry, subtle shallow relief under glaze, soft depth layering, low-contrast carved lines, translucent celadon glaze, glaze pooling in grooves, gentle occlusion in recesses, realistic ceramic craftsmanship",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码"
+    }
+  },
+  "8": {
+    "inputs": {
+      "text": "decal, sticker, printed pattern, floating pattern, perspective mismatch, hard edges, sharp graphic outlines, texture pasted on top, flat overlay, high relief, deep carving, strong cast shadow",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码"
+    }
+  },
+  "9": {
+    "inputs": {
+      "pixels": [
+        "167",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE编码"
+    }
+  },
+  "10": {
+    "inputs": {
+      "strength": 1.0,
+      "conditioning": [
+        "7",
+        0
+      ],
+      "control_net": [
+        "6",
+        0
+      ],
+      "image": [
+        "172",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply",
+    "_meta": {
+      "title": "应用ControlNet（旧版）"
+    }
+  },
+  "12": {
+    "inputs": {
+      "seed": 860444348505431,
+      "steps": 32,
+      "cfg": 9.5,
+      "sampler_name": "dpmpp_2m_sde",
+      "scheduler": "karras",
+      "denoise": 0.3,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "10",
+        0
+      ],
+      "negative": [
+        "8",
+        0
+      ],
+      "latent_image": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "13": {
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "14": {
+    "inputs": {
+      "filename_prefix": "celadon_design_v6A_fit",
+      "images": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "146": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "172",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "167": {
+    "inputs": {
+      "width": 1024,
+      "height": 1204,
+      "images": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "CenterCropImages",
+    "_meta": {
+      "title": "裁剪图像（中心）"
+    }
+  },
+  "168": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "167",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "172": {
+    "inputs": {
+      "low_threshold": 0.16,
+      "high_threshold": 0.34,
+      "image": [
+        "175",
+        0
+      ]
+    },
+    "class_type": "Canny",
+    "_meta": {
+      "title": "Canny边缘检测"
+    }
+  },
+  "175": {
+    "inputs": {
+      "upscale_method": "bilinear",
+      "width": 1024,
+      "height": 1024,
+      "crop": "center",
+      "image": [
+        "176",
+        0
+      ]
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "缩放图像"
+    }
+  },
+  "176": {
+    "inputs": {
+      "target_width": 1600,
+      "target_height": 1600,
+      "padding_color": "white",
+      "interpolation": "lanczos",
+      "image": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "ResizeAndPadImage",
+    "_meta": {
+      "title": "调整尺寸并填充图像"
+    }
+  },
+  "177": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "175",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "178": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024
+    },
+    "class_type": "CenterCropImages",
+    "_meta": {
+      "title": "裁剪图像（中心）"
+    }
+  }
+}

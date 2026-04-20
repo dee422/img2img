@@ -1,0 +1,304 @@
+{
+  "1": {
+    "inputs": {
+      "ckpt_name": "dreamshaper_8.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器（简易）"
+    }
+  },
+  "2": {
+    "inputs": {
+      "image": "盘子1.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "3": {
+    "inputs": {
+      "image": "ChineseDragon2.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "6": {
+    "inputs": {
+      "control_net_name": "control_v11p_sd15_canny.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "加载ControlNet模型"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "celadon bowl interior, dragon carving integrated into bowl surface, motif strictly follows bowl curvature and perspective, underglaze shallow relief carving, clear but soft engraved boundaries, subtle depth layering, mild recess shading, glaze pooling in carved grooves, preserve original celadon glaze tone and translucency, natural ceramic craftsmanship",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码"
+    }
+  },
+  "8": {
+    "inputs": {
+      "text": "decal, sticker, printed texture, floating pattern, perspective mismatch, pattern not conforming to bowl geometry, hard graphic edges, plastic look, neon green, color shift, over-embossed deep sculpture, harsh cast shadows",
+      "clip": [
+        "1",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码"
+    }
+  },
+  "9": {
+    "inputs": {
+      "pixels": [
+        "167",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE编码"
+    }
+  },
+  "10": {
+    "inputs": {
+      "strength": 0.92,
+      "conditioning": [
+        "7",
+        0
+      ],
+      "control_net": [
+        "6",
+        0
+      ],
+      "image": [
+        "172",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply",
+    "_meta": {
+      "title": "应用ControlNet（旧版）"
+    }
+  },
+  "12": {
+    "inputs": {
+      "seed": 860444348505431,
+      "steps": 34,
+      "cfg": 9.0,
+      "sampler_name": "dpmpp_2m_sde",
+      "scheduler": "karras",
+      "denoise": 0.42,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "181",
+        0
+      ],
+      "negative": [
+        "8",
+        0
+      ],
+      "latent_image": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "13": {
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "14": {
+    "inputs": {
+      "filename_prefix": "celadon_design_v6C_dualfit",
+      "images": [
+        "13",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "146": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "172",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "167": {
+    "inputs": {
+      "width": 1024,
+      "height": 1204,
+      "images": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "CenterCropImages",
+    "_meta": {
+      "title": "裁剪图像（中心）"
+    }
+  },
+  "168": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "167",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "172": {
+    "inputs": {
+      "low_threshold": 0.1,
+      "high_threshold": 0.24,
+      "image": [
+        "175",
+        0
+      ]
+    },
+    "class_type": "Canny",
+    "_meta": {
+      "title": "Canny边缘检测"
+    }
+  },
+  "175": {
+    "inputs": {
+      "upscale_method": "bilinear",
+      "width": 1024,
+      "height": 1024,
+      "crop": "center",
+      "image": [
+        "176",
+        0
+      ]
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "缩放图像"
+    }
+  },
+  "176": {
+    "inputs": {
+      "target_width": 1200,
+      "target_height": 1200,
+      "padding_color": "white",
+      "interpolation": "lanczos",
+      "image": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "ResizeAndPadImage",
+    "_meta": {
+      "title": "调整尺寸并填充图像"
+    }
+  },
+  "177": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "175",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "178": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024
+    },
+    "class_type": "CenterCropImages",
+    "_meta": {
+      "title": "裁剪图像（中心）"
+    }
+  },
+  "180": {
+    "inputs": {
+      "low_threshold": 0.07,
+      "high_threshold": 0.2,
+      "image": [
+        "167",
+        0
+      ]
+    },
+    "class_type": "Canny",
+    "_meta": {
+      "title": "Canny Bowl Shape"
+    }
+  },
+  "181": {
+    "inputs": {
+      "strength": 0.78,
+      "conditioning": [
+        "10",
+        0
+      ],
+      "control_net": [
+        "6",
+        0
+      ],
+      "image": [
+        "180",
+        0
+      ]
+    },
+    "class_type": "ControlNetApply",
+    "_meta": {
+      "title": "Apply ControlNet Bowl"
+    }
+  }
+}

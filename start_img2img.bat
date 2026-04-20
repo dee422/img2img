@@ -7,13 +7,13 @@ set "PROJECT_ROOT=D:\PixelSmile\LoRA"
 set "OUTPUT_DIR=%PROJECT_ROOT%\outputs"
 set "ENV_NAME=pixel_ai"
 
-echo [1/2] 正在后台启动 ComfyUI 服务 (常用模式)...
-start "Comfy-Backend-Regular" /min "%COMFY_ROOT%\python_embeded\python.exe" -s "%COMFY_ROOT%\ComfyUI\main.py" ^
+echo [1/2] Starting ComfyUI backend...
+start "Comfy-Backend-Img2Img" /min "%COMFY_ROOT%\python_embeded\python.exe" -s "%COMFY_ROOT%\ComfyUI\main.py" ^
   --windows-standalone-build ^
   --lowvram ^
   --output-directory "%OUTPUT_DIR%"
 
-echo [2/2] 正在准备【常用图生图】前端界面...
+echo [2/2] Launching TakeChinaHome UI...
 timeout /t 8 /nobreak > nul
 
 where conda >nul 2>nul
@@ -26,8 +26,10 @@ if %ERRORLEVEL%==0 (
 )
 
 echo ===============================================
-echo   💻 常用图生图定制界面 (已关联 LoRA-1)
+echo   TakeChinaHome - Vessel + Pattern UI
 echo ===============================================
-:: 传递参数给 Python
-python app.py "图生图+LoRA (1).json"
+echo Workflow options available in UI: 6C / 6D
+echo ===============================================
+
+python app.py
 pause
